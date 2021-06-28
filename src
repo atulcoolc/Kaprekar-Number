@@ -1,0 +1,69 @@
+package com.fresco;
+
+import java.util.*;
+import java.lang.Math;
+import java.util.stream.Collectors;
+
+public class LambdaFn {
+  public Boolean foo1(Long n)
+    {
+      Long sqr=n*n;
+      Long div=1L;
+      while(div<=n) 
+      {
+        div*=10;
+      }
+      while(sqr%div<n)
+      {
+        if((sqr-n)%(div-1)==0)
+        {
+          return true;
+        }
+        div*=10;
+      }
+      return false;
+    }
+    public Boolean foo(Long n)
+    {
+      if(n.equals(1L))
+      {
+        return true;
+      }
+      Long sq=n*n;
+      Long ten=10L;
+      int count=0;
+      while(sq!=0)
+      {
+        count++;
+        sq=sq/ten;
+      }
+      sq=n*n;
+      for(int i=1;i<count;i++)
+      {
+        Long eq=(long)Math.pow(10,i);
+        if(eq.equals(n))
+        {
+          continue;
+        }
+        Long sum=sq/eq+sq%eq;
+        if(sum.equals(n))
+        {
+          return true;
+        }
+      }
+      if(foo1(n))
+      {
+        return true;
+      }
+      return false;
+    }
+    
+    public List<Long> functionalProgramming(List<String> listOfIntegers)
+    {
+        List<Long> outputList = Collections.emptyList();
+        outputList=listOfIntegers.stream().map(s->Long.valueOf(s)).filter(a->foo(a)).collect(Collectors.toList());
+
+        return outputList;
+    }
+    
+}
